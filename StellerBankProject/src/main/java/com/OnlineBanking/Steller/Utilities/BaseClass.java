@@ -13,6 +13,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
+
 
 
 public class BaseClass {
@@ -47,17 +49,17 @@ public class BaseClass {
 	public void config_BC() throws Throwable {
 		
 		System.out.println("Before class executing");
-		System.setProperty("webdriver.chrome.driver", "./driver/chromedriver.exe");
-		System.setProperty("webdriver.gecko.driver", "./driver/geckodriver.exe");
+		//System.setProperty("webdriver.chrome.driver", "./driver/chromedriver.exe");
+		//System.setProperty("webdriver.gecko.driver", "./driver/geckodriver.exe");
 		
 		String Browser = Fut.getPropertyKeyValue("browser");
 		
 		if(Browser.equalsIgnoreCase("chrome")) {
-			
+			WebDriverManager.chromedriver().setup();
 			driver=new ChromeDriver();
 		}
 		else if(Browser.equalsIgnoreCase("firefox")) {
-			//WebDriverManager.firefoxdriver().setup();
+			WebDriverManager.firefoxdriver().setup();
 			driver=new FirefoxDriver();
 		}
 		else if(Browser.equalsIgnoreCase("edge")) {
